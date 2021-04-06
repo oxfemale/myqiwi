@@ -19,7 +19,7 @@ class Wallet:
         gen_payment
     """
 
-    def __init__(self, token: str, proxy: dict = None):
+    def __init__(self, token: str, number=None, proxy: dict = None):
         """
         Visa QIWI Кошелек
         Parameters
@@ -41,12 +41,13 @@ class Wallet:
             "Authorization": "Bearer {}".format(token),
         }
         self._profile = None
-        self.__number = None
         self.__username = None
+        self.__number = number
 
     @property
     def number(self):
-        self.check_property_profile()
+        if self.__number is None:
+            self.check_property_profile()
         return self.__number
 
     @property
